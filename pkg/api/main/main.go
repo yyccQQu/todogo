@@ -12,7 +12,7 @@ import (
 func RegisterHandlers() *httprouter.Router{
 	router := httprouter.New()
 
-	router.POST("/user", api.CreateUser)
+	router.POST("/user",api.CreateUser)
 
 	router.POST("/user/:user_name", api.Login)
 
