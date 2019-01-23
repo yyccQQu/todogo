@@ -23,6 +23,6 @@ type Comment struct {
 }
 
 type SimpleSession struct {
-	Username string //login name
-	TTL int64
+	Username string //loginname
+	TTL int64 //用来检查用户是否登录过期 当用户返回的时间与ttl不匹配的时候= 就返回登录过期
 }

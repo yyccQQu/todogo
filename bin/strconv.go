@@ -30,7 +30,7 @@ func main()  {
 	s2 := strconv.FormatFloat(3.1415, 'E', -1, 64)
 	s3 := strconv.FormatInt(-42, 16)
 	s4 := strconv.FormatUint(42, 16)
-	fmt.Println("将值转换为字符串", s1,s2,s3,s4)
+	fmt.Println("将值转换为字符串", s1,s2,s3,s4) //true 3.1415 -42 42
 
 	q1 := strconv.Quote("Hello, 世界")
 	q2 := strconv.QuoteToASCII("Hello, 世界")

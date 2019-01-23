@@ -6,7 +6,24 @@ import (
 	"todogo/pkg/api"
 )
 
+type middleWareHandler struct {
+	r *httprouter.Router
+}
 
+func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
+	m := middleWareHandler{}
+	m.r = r
+	return m
+}
+
+func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	//check session
+	//validateUserSession(r)
+
+	// ServeHTTP makes the router implement the http.Handler interface.
+	// ServeHTTP使路由器实现http。处理程序接口。
+	m.r.ServeHTTP(w, r)
+}
 
 
 func RegisterHandlers() *httprouter.Router{
@@ -22,8 +39,11 @@ func RegisterHandlers() *httprouter.Router{
 func main() {
 
 	r:= RegisterHandlers()
-	http.ListenAndServe(":8000", r)
+	mh := NewMiddleWareHandler(r)
+
+	http.ListenAndServe(":8000", mh)
 }
+
 
 //过程
 
