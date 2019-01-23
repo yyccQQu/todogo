@@ -7,7 +7,7 @@ import (
 	"time"
 	"todogo/pkg/api/utils"
 	"todogo/pkg/api/defs"
-)
+	)
 
 func AddUserCredential(loginName string, pwd string) error{
 
@@ -156,14 +156,16 @@ func AddNewComments(vid string, aid int, content string) error {
 }
 
 func ListComments(vid string, from, to int) ([]*defs.Comment, error) {
-	stmtOut, err := dbConn.Prepare(` SELECT comments.id, users.Login_name, comments.content FROM comments
-		INNER JOIN users ON comments.author_id = users.id
+	//http://www.ruanyifeng.com/blog/2019/01/table-join.html
+	stmtOut, err := dbConn.Prepare(` SELECT comments.id, userstable.Login_name, comments.content FROM comments
+		INNER JOIN userstable ON comments.author_id = userstable.id
 		WHERE comments.video_id = ? AND comments.time > FROM_UNIXTIME(?) AND comments.time <= FROM_UNIXTIME(?)`)
 
 	var res []*defs.Comment
-
 	rows, err := stmtOut.Query(vid, from, to)
+	//fmt.Println(rows,"------->>>")
 	if err != nil {
+		log.Println(err.Error())
 		return res, err
 	}
 

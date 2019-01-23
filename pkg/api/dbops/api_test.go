@@ -131,6 +131,7 @@ func testAddComments(t *testing.T) {
 func testListComments(t *testing.T) {
 	vid := "12345"
 	from := 1514764800
+	// https://golang.org/pkg/strconv/
 	to, _ := strconv.Atoi(strconv.FormatInt(time.Now().UnixNano()/1000000000, 10))
 
 	res, err := ListComments(vid, from, to)
