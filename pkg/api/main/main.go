@@ -18,8 +18,7 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//check session
-	//validateUserSession(r)
-
+	api.ValidateUserSession(r)
 	// ServeHTTP makes the router implement the http.Handler interface.
 	// ServeHTTP使路由器实现http。处理程序接口。
 	m.r.ServeHTTP(w, r)

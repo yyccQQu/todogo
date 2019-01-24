@@ -81,7 +81,6 @@ func RetrieveAllSessions() (*sync.Map, error) { //返回一堆数据，所以放
 			log.Printf(" session id: %s, ttl: %d", id, ss.TTL)
 		}
 
-
 	}
 
 	return m, nil
