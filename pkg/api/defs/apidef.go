@@ -27,7 +27,11 @@ type SimpleSession struct {
 	TTL int64 //用来检查用户是否登录过期 当用户返回的时间与ttl不匹配的时候= 就返回登录过期
 }
 
+//response
 type SignedUp struct {
-	Success bool
-	SessionId string
+	Success bool `json:"success"`
+	SessionId string `json:"session_id"`
 }
+
+
+

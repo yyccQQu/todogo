@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 	"todogo/pkg/api/session"
-)
+	)
 
 var HEADER_FIELD_SESSION = "X-Session-Id"
 var HEADER_FIELD_UNAME = "X-User-Name"
@@ -23,4 +23,12 @@ func ValidateUserSession(r *http.Request) bool {
 	return true
 }
 
+func ValidateUser(w http.ResponseWriter, r *http.Request) bool {
+	uname := r.Header.Get(HEADER_FIELD_UNAME)
+	if len(uname) == 0 {
+		//pkg.SendErrorResponse(w, defs.ErrorNotAuthUser)
+		return false
+	}
+	return true
+}
 
