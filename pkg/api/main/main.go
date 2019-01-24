@@ -4,25 +4,33 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"todogo/pkg/api"
+	"fmt"
 )
 
 type middleWareHandler struct {
 	r *httprouter.Router
 }
 
+//---1
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 	m := middleWareHandler{}
 	m.r = r
+	fmt.Println(76543)
 	return m
 }
 
+//---2
+// middleWareHandler执行的函数
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//check session
 	api.ValidateUserSession(r)
+	fmt.Println(123456)
 	// ServeHTTP makes the router implement the http.Handler interface.
 	// ServeHTTP使路由器实现http。处理程序接口。
 	m.r.ServeHTTP(w, r)
 }
+
+//1，2之间的联系
 
 
 func RegisterHandlers() *httprouter.Router{
