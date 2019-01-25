@@ -10,12 +10,22 @@ import (
 	"todogo/pkg/api/defs"
 	"todogo/pkg/api/dbops"
 	"todogo/pkg/api/session"
+	"fmt"
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params){
 	//io.WriteString(w, "Create Userhandler")
 	res, _ := ioutil.ReadAll(r.Body)
+	// 在body里面添加
+	//{
+	//  "user_name": "xyd",
+	//  "pwd": "123456"
+	//}
+	//
+	fmt.Println("---->")
 	ubody := &defs.UserCredential{}
+	fmt.Println("---->",res)
+
 
 	if err := json.Unmarshal(res, ubody); err != nil { //如果不能格式化json，那就返回错误
 		pkg.SendErrorResponse(w, defs.ErrorRequestBodyParseFailed)
