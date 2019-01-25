@@ -34,6 +34,8 @@ func RegisterHandlers() *httprouter.Router{
 	router := httprouter.New()
 
 	router.GET("/videos/:vid-id", src.StreamHandler)
+	router.POST("/upload/:vid-id", src.UploadHandler)
+	router.GET("/testpage", src.TestPageHandler)
 
 	return router
 }
