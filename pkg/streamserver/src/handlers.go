@@ -19,10 +19,11 @@ func TestPageHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params
 }
 
 func StreamHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params)  {
-	vid := p.ByName("vid-id")
-	vl := VIDEO_DIR + vid
-	fmt.Println(vl,"vl")
-	video, err := os.Open(vl)
+	//vid := p.ByName("vid-id")
+	//vl := VIDEO_DIR + vid + ".mp4"
+	v1 := "/Users/.../gopath1/src/todogo/pkg/streamserver/src/videos/testvideo.mp4"
+	fmt.Println(v1,"v1")
+	video, err := os.Open(v1)
 
 	if err != nil {
 		log.Printf("Error when try to open file: %v", err)

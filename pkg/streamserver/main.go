@@ -4,6 +4,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"todogo/pkg/streamserver/src"
+	"log"
 )
 
 type middleWareHandler struct {
@@ -19,7 +20,7 @@ func NewMiddleWareHandler(r *httprouter.Router, cc int) http.Handler {
 	return m
 }
 
-func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
+func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if !m.l.GetConn() {
 		src.SendErrorResponse(w, http.StatusTooManyRequests, "Too many requests")
 		return
@@ -29,8 +30,11 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
 	defer m.l.ReleaseConn()
 }
 
+func init() {
 
-func RegisterHandlers() *httprouter.Router{
+	log.SetFlags(log.Flags() | log.Llongfile)
+}
+func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
 
 	router.GET("/videos/:vid-id", src.StreamHandler)
@@ -40,13 +44,8 @@ func RegisterHandlers() *httprouter.Router{
 	return router
 }
 
-
-
-func main()  {
+func main() {
 	r := RegisterHandlers()
 	mh := NewMiddleWareHandler(r, 2)
 	http.ListenAndServe(":9000", mh)
 }
-
-
-
