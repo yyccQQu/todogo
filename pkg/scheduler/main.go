@@ -4,7 +4,8 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"todogo/pkg/scheduler/src"
-	)
+	"todogo/pkg/scheduler/src/taskrunner"
+)
 
 // 什么是sheduler
 // 叫做 任务，通过普通resetapi方法 不会马上给他结果的任务，
@@ -21,9 +22,9 @@ func RegisterHandlers() *httprouter.Router{
 }
 
 func main()  {
-	//go taskrunner.Start()
+	go taskrunner.Start()
 	r := RegisterHandlers()
-	http.ListenAndServe("9001",r)
+	http.ListenAndServe(":9001",r)
 }
 
 

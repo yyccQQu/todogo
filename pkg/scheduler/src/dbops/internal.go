@@ -5,8 +5,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// api -> video_id -> mysql
+// dispatcher -> mysql -> video_id -> datachannel  behere
+// executor -> datachannel-> video_id -> delete videos
+
 func ReadVideoDeletionRecord(count int) ([]string, error) {
-	stmtOut, err := dbConn.Prepare("SELECT video_id FROM video_del_rec LIMIT ?")
+	stmtOut, err := dbConn.Prepare("SELECT video_id FROM video_del_rec LIMIT ?") //搜索 将要删除的video的video_id
 
 	var ids []string
 
@@ -34,7 +38,7 @@ func ReadVideoDeletionRecord(count int) ([]string, error) {
 }
 
 func DelVideoDeletionRecord(vid string) error {
-	stmtDel, err := dbConn.Prepare("DELETE FROM video_del_rec WHERE video_id=?")
+	stmtDel, err := dbConn.Prepare("DELETE FROM video_del_rec WHERE video_id=?") //将搜索到的id匹配进行删除操作
 	if err != nil {
 		return err
 	}
