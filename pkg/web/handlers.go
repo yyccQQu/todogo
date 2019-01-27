@@ -5,6 +5,8 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"html/template"
 	"github.com/labstack/gommon/log"
+	"net/url"
+	"net/http/httputil"
 )
 
 type HomePage struct {
@@ -35,3 +37,13 @@ func homeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)  
 	}
 
 }
+
+func proxyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)  {
+	u, _ := url.Parse("http://127.0.0.1")
+	proxy :=  httputil.NewSingleHostReverseProxy(u)//targe_path 域名转换
+	proxy.ServeHTTP(w, r)
+
+}
+
+
+
