@@ -3,24 +3,20 @@ package main
 import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
-	"todogo/pkg/api"
+	"morefun"
 )
 
-
-
-
-func RegisterHandlers() *httprouter.Router{
+func RegisterHandlers()  *httprouter.Router{
 	router := httprouter.New()
 
-	router.POST("/user", api.CreateUser)
-
-	router.POST("/user/:user_name", api.Login)
+	router.GET("/", morefun.Register)
 
 	return router
 }
 
-func main() {
-
+func main()  {
 	r:= RegisterHandlers()
-	http.ListenAndServe(":8000", r)
+
+	http.ListenAndServe(":8081", r)
+
 }
